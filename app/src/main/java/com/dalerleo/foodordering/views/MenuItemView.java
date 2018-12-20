@@ -5,6 +5,7 @@ import android.support.design.button.MaterialButton;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,11 +36,11 @@ public class MenuItemView {
   @View(R.id.imageView)
   protected ImageView imageView;
 
-  @View(R.id.favFrame)
-  protected FrameLayout favFrame;
-
   @View(R.id.animation_view)
   protected LottieAnimationView lottieFav;
+
+  @View(R.id.cardItem)
+  protected LinearLayout cardItem;
 
   public Food mInfo;
   protected Context mContext;
@@ -62,10 +63,10 @@ public class MenuItemView {
   @Resolve
   protected void onResolved() {
     favsRef = FirebaseDatabase.getInstance().getReference().child("favs");
-
+    onCartClick();
     lottieFav.setMinProgress(0.6f);
     if(isFav) {
-      favFrame.setVisibility(android.view.View.GONE);
+//      lottieFav.setVisibility(android.view.View.GONE);
       lottieFav.playAnimation();
     }
 
@@ -105,4 +106,16 @@ public class MenuItemView {
   void unsetFav() {
     favsRef.child(username).child(mInfo.getName()).removeValue();
   }
+
+  void onCartClick() {
+    cardItem.setOnClickListener(new android.view.View.OnClickListener() {
+      @Override
+      public void onClick(android.view.View v) {
+        Toast.makeText(mContext, "HELLO", Toast.LENGTH_SHORT).show();
+      }
+    });
+  }
 }
+
+
+

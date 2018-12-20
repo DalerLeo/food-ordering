@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingEnd="20dp"
+        android:id="@+id/cardItem"
         android:gravity="start">
         <android.support.design.card.MaterialCardView
             android:layout_width="wrap_content"
@@ -70,27 +71,7 @@
             </LinearLayout>
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/favFrame">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <android.support.design.widget.FloatingActionButton
-                        android:layout_height="24dp"
-                        android:layout_width="24dp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        />
-                    <android.support.design.widget.FloatingActionButton
-                        android:layout_height="24dp"
-                        android:layout_width="24dp"
-                        />
-                </LinearLayout>
-
+                android:layout_height="match_parent">
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animation_view"
                     android:layout_width="45dp"
