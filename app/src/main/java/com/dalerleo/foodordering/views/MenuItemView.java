@@ -3,6 +3,7 @@ package com.dalerleo.foodordering.views;
 import android.content.Context;
 import android.support.design.button.MaterialButton;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,9 @@ public class MenuItemView {
   @View(R.id.imageView)
   protected ImageView imageView;
 
+  @View(R.id.favFrame)
+  protected FrameLayout favFrame;
+
   @View(R.id.animation_view)
   protected LottieAnimationView lottieFav;
 
@@ -59,7 +63,9 @@ public class MenuItemView {
   protected void onResolved() {
     favsRef = FirebaseDatabase.getInstance().getReference().child("favs");
 
+    lottieFav.setMinProgress(0.6f);
     if(isFav) {
+      favFrame.setVisibility(android.view.View.GONE);
       lottieFav.playAnimation();
     }
 
@@ -70,11 +76,12 @@ public class MenuItemView {
         if (!lottieFav.isAnimating() && !username.isEmpty()) {
           if (!isPressed) {
             setFav();
+
             lottieFav.playAnimation();
             isPressed = true;
           } else {
             unsetFav();
-            lottieFav.setProgress(0);
+            lottieFav.setProgress(0.6f);
             isPressed = false;
           }
         }
