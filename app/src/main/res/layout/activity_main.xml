@@ -5,6 +5,7 @@
     android:id="@+id/activityMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -26,6 +27,5 @@
         app:tabIndicatorHeight="4dp"
         app:tabBackground="@color/colorPrimary"
         app:tabMode="fixed" />
-
 
 </FrameLayout>

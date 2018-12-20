@@ -32,10 +32,14 @@ public class Food {
   public long getPrice() {
     return price;
   }
+  public String getPriceCurrency() {
+    return Long.toString(price) + " SUM";
+  }
 
   public void setPrice(long price) {
     this.price = price;
   }
+
 
   public Food() {
 

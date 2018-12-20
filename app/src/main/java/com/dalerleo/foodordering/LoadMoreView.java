@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.dalerleo.foodordering.models.Food;
+import com.dalerleo.foodordering.views.MenuItemView;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.infinite.LoadMore;
@@ -50,7 +51,7 @@ public class LoadMoreView {
           Log.d("DEBUG", "count " + count);
           Food food = new Food("PIZZA", 20000);
 
-          mLoadMoreView.addView(new ItemView(mLoadMoreView.getContext(), food));
+          mLoadMoreView.addView(new MenuItemView(mLoadMoreView.getContext(), food, "dalerleo"));
           mLoadMoreView.loadingDone();
         }
       });

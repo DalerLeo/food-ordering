@@ -10,13 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dalerleo.foodordering.models.Food;
+import com.dalerleo.foodordering.prefs.UserData;
+import com.dalerleo.foodordering.views.MenuItemView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.database.Query;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class TabMenu extends Fragment {
   private List<Food> foodList = new ArrayList<>();
   DatabaseReference foodsRef;
   ChildEventListener childEventListener;
+  UserData userData;
   @Nullable
   @Override
   public View onCreateView(
@@ -35,25 +37,40 @@ public class TabMenu extends Fragment {
     @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_menu, container, false);
     mLoadMoreView = view.findViewById(R.id.loadMore);
-    setupView();
     return view;
   }
 
 
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    setupView();
+    userData = new UserData();
+  }
+
   private void setupView(){
+    Query myMostViewedPostsQuery = FirebaseDatabase.getInstance().getReference().child("foods")
+      .orderByChild("price").equalTo(20000);
+
+
     foodsRef = FirebaseDatabase.getInstance().getReference().child("foods");
+
+
 
     childEventListener = new ChildEventListener() {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         Food food = dataSnapshot.getValue(Food.class);
-        mLoadMoreView.addView(new ItemView(TabMenu.this.getContext(), food));
-        Log.d("FOOD_NAME", food.getName());
+        mLoadMoreView.addView(new MenuItemView(
+          TabMenu.this.getContext(),
+          food,
+          userData.getUserPath()
+        ));
+
       }
 
       @Override
       public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-        Log.d("ADDD", "CHANGE");
 
       }
 
@@ -72,6 +89,8 @@ public class TabMenu extends Fragment {
 
       }
     };
+
+//    myMostViewedPostsQuery.addChildEventListener(childEventListener);
 
     foodsRef.addChildEventListener(childEventListener);
 
