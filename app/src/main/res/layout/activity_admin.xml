@@ -26,5 +26,11 @@
         app:tabIndicatorHeight="4dp"
         app:tabBackground="@color/colorPrimary"
         app:tabMode="fixed" />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="15dp"
+        android:onClick="signOut"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

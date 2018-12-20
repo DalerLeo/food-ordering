@@ -5,13 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.mindorks.placeholderview.InfinitePlaceHolderView
+        android:id="@+id/favList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:text="Tab 1"
-        android:textSize="36sp" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
