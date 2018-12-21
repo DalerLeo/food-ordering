@@ -1,26 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Food Name"/>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="30dp"
+    android:orientation="vertical">
 
-    <EditText
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:src="@drawable/foto"
+        app:civ_border_color="#0FF00000"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:id="@+id/clientProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Price"/>
+        android:text="Jean Morise"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+
+</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+998909998789"
+        android:paddingLeft="30dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:drawablePadding="15dp"
+        android:drawableLeft="@drawable/phone_black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="javo@gmail.com"
+        android:paddingLeft="30dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:drawablePadding="15dp"
+        android:drawableLeft="@drawable/mail"
+        android:layout_marginVertical="25dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Order List"
+        android:paddingLeft="30dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:drawablePadding="15dp"
+        android:drawableLeft="@drawable/order"
+        android:background="@color/white"/>
+
+
+    <Button
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="signOut"
-        android:text="Sign out"/>
+        android:text="Sign out"
+        android:layout_marginTop="100dp"/>
 
 
 
