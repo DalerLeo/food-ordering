@@ -1,91 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="1dp"
     android:layout_margin="5dp"
     android:background="@android:color/holo_blue_dark"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="1dp"
 
 
     >
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
+        android:layout_gravity="center"
         android:background="@color/white"
-        android:paddingEnd="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
         android:paddingTop="10dp"
-        android:paddingBottom="20dp"
-        android:gravity="start">
-        <ImageView
-            android:contentDescription="Food image"
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="top"
-            android:scaleType="centerCrop"/>
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="dalerleo"
+                android:textColor="@color/blackish"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/orderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="Burger King"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/orderAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Amount: 10"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/orderPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="20000 sum"
+                android:textAllCaps="true"
+                android:textColor="#cacbcc"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/actionButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:gravity="end"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/titleTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:text="Burger King"
-                android:layout_marginTop="5dp"
-                android:textSize="16sp"
-                android:fontFamily="@font/montserrat_semibold" />
-            <TextView
-                android:id="@+id/priceTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="#cacbcc"
-                android:text="20000 sum"
-                android:textSize="13sp"
-                android:fontFamily="@font/montserrat_regular"
-                android:textAllCaps="true"
-                android:textStyle="bold"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:animateLayoutChanges="true"
-                >
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/animation_view"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:lottie_fileName="like.json"
-                    app:lottie_autoPlay="false" />
 
-                <android.support.design.button.MaterialButton
-                    android:id="@+id/cardBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                    android:textSize="17sp"
-                    android:text="ORDER"
-                    app:rippleColor="@color/white"
-                    android:gravity="center"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="40dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/montserrat_semibold"
-                    />
-            </LinearLayout>
+            <android.support.design.button.MaterialButton
+                android:id="@+id/cancelBtn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="cancel"
+                android:textAppearance="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:backgroundTint="@color/grey"
+                app:cornerRadius="40dp"
+                app:rippleColor="@color/white" />
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/acceptBtn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"
+                android:text="Accept"
+                android:textAppearance="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/colorPrimary"
+                app:cornerRadius="40dp"
+                app:rippleColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -21,9 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".AdminActivity" />
-        <activity android:name=".FoodCreate"/>
+        <activity android:name=".FoodCreate" />
+        <activity android:name=".views.FoodDetail"></activity>
     </application>
 
 </manifest>

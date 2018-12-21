@@ -1,6 +1,7 @@
 package com.dalerleo.foodordering.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.button.MaterialButton;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -21,7 +22,6 @@ import com.mindorks.placeholderview.annotations.View;
 
 @Layout(R.layout.menu_item_view)
 public class MenuItemView {
-
 
   DatabaseReference favsRef;
   boolean isFav = false;
@@ -111,7 +111,12 @@ public class MenuItemView {
     cardItem.setOnClickListener(new android.view.View.OnClickListener() {
       @Override
       public void onClick(android.view.View v) {
-        Toast.makeText(mContext, "HELLO", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mContext, FoodDetail.class);
+        intent.putExtra("name", mInfo.getName());
+        intent.putExtra("image_url", mInfo.getImage_url());
+        intent.putExtra("price", mInfo.getPriceCurrency());
+        intent.putExtra("priceNum", mInfo.getPrice());
+        mContext.startActivity(intent);
       }
     });
   }

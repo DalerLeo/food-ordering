@@ -102,7 +102,6 @@ public class FoodCreate extends AppCompatActivity {
       if (filePath.getLastPathSegment() != null) {
         final StorageReference photoRef = imageRef.child(filePath.getLastPathSegment());
         try {
-
           photoRef.putFile(filePath)
             .continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
               @Override
@@ -120,7 +119,6 @@ public class FoodCreate extends AppCompatActivity {
               if (task.isSuccessful()) {
                 Uri downloadUri = task.getResult();
                 imagePath = downloadUri.toString();
-                Log.d("DOWN_0PATH ", downloadUri.toString());
 
               } else {
                 // Handle failures

@@ -3,13 +3,37 @@ package com.dalerleo.foodordering.models;
 public class Order {
 
 private String name;
+private String username;
 private int amount;
-private int price;
+private long price;
+private int status;
 
-  public Order(String name, int amount, int price) {
+
+
+  public Order(String username, String name, int amount, long price, int status) {
     this.name = name;
     this.amount = amount;
     this.price = price;
+    this.status = status;
+    this.username = username;
+  }
+  public Order() { }
+
+  public int getStatus() {
+    return status;
+  }
+
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
   }
 
   public String getName() {
@@ -25,15 +49,23 @@ private int price;
     return amount;
   }
 
+  public String getAmountText() {
+    return "Amount: " + amount;
+  }
+
   public void setAmount(int amount) {
     this.amount = amount;
   }
 
-  public int getPrice() {
+  public long getPrice() {
     return price;
   }
 
-  public void setPrice(int price) {
+  public String getPriceCurrency() {
+    return Long.toString(price) + " SUM";
+  }
+
+  public void setPrice(long price) {
     this.price = price;
   }
 }
