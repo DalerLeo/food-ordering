@@ -23,7 +23,7 @@ public class UserData {
   }
 
   public void setName(String name) {
-    getSharedPrefs().edit().putString(USER_NAME,name).apply();
+    getSharedPrefs().edit().putString(NAME, name).apply();
   }
 
   public String getUsername() {

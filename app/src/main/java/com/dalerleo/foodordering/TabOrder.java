@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.dalerleo.foodordering.models.Food;
 import com.dalerleo.foodordering.models.Order;
@@ -28,6 +29,7 @@ public class TabOrder extends Fragment {
   private InfinitePlaceHolderView mLoadMoreView;
   DatabaseReference orderRef;
   ChildEventListener childEventListener;
+  ProgressBar pb;
   FirebaseStorage mStore;
   StorageReference imageRef;
   @Nullable
@@ -38,6 +40,7 @@ public class TabOrder extends Fragment {
     @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_orders, container, false);
     mLoadMoreView = view.findViewById(R.id.orderItems);
+    pb = view.findViewById(R.id.progress);
     setupView();
     return view;
   }
@@ -52,6 +55,7 @@ public class TabOrder extends Fragment {
         Order order = dataSnapshot.getValue(Order.class);
         String orderId = dataSnapshot.getKey();
         mLoadMoreView.addView(new OrderView(TabOrder.this.getContext(), order, orderId));
+        pb.setVisibility(View.GONE);
       }
 
       @Override
