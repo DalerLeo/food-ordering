@@ -3,11 +3,26 @@ package com.dalerleo.foodordering.models;
 public class Food {
 
   private String name;
+  private String content;
   private String image_url;
   private long price;
 
   public String getImage_url() {
     return image_url;
+  }
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public Food(String name, String content, String image_url, long price) {
+    this.name = name;
+    this.content = content;
+    this.image_url = image_url;
+    this.price = price;
   }
 
   public void setImage_url(String image_url) {

@@ -32,7 +32,7 @@ public class FoodCreate extends AppCompatActivity {
   DatabaseReference foodsRef;
 
   Button chooseImg, uploadFood;
-  EditText priceEl, nameEl;
+  EditText priceEl, nameEl, contentEl;
   ImageView imgView;
   int PICK_IMAGE_REQUEST = 111;
   String imagePath;
@@ -52,6 +52,7 @@ public class FoodCreate extends AppCompatActivity {
     uploadFood = (Button) findViewById(R.id.uploadFood);
     priceEl = (EditText) findViewById(R.id.createPrice);
     nameEl = (EditText) findViewById(R.id.createName);
+    contentEl = (EditText) findViewById(R.id.createContent);
     imgView = (ImageView) findViewById(R.id.imgView);
 
 
@@ -75,20 +76,23 @@ public class FoodCreate extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         String name = nameEl.getText().toString();
+        String content = contentEl.getText().toString();
         String price = priceEl.getText().toString();
 
-        if (!price.equals("") && !name.equals("")) ;
-        DatabaseReference newFood = foodsRef.push();
-        newFood.setValue(new Food(
-          name,
-          imagePath,
-          Long.parseLong(price)
-        )).addOnCompleteListener(new OnCompleteListener<Void>() {
-          @Override
-          public void onComplete(@NonNull Task<Void> task) {
-            startActivity(new Intent(FoodCreate.this, AdminActivity.class));
-          }
-        });
+        if (!price.equals("") && !name.equals("")) {
+          DatabaseReference newFood = foodsRef.push();
+          newFood.setValue(new Food(
+            name,
+            content,
+            imagePath,
+            Long.parseLong(price)
+          )).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+              startActivity(new Intent(FoodCreate.this, AdminActivity.class));
+            }
+          });
+        }
 
       }
     });
@@ -98,6 +102,7 @@ public class FoodCreate extends AppCompatActivity {
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+      pd.setMessage("Loading...");
       filePath = data.getData();
       if (filePath.getLastPathSegment() != null) {
         final StorageReference photoRef = imageRef.child(filePath.getLastPathSegment());
@@ -117,6 +122,7 @@ public class FoodCreate extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
               if (task.isSuccessful()) {
+                pd.dismiss();
                 Uri downloadUri = task.getResult();
                 imagePath = downloadUri.toString();
 

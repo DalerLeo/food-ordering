@@ -24,7 +24,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".FoodCreate" />
-        <activity android:name=".views.FoodDetail"></activity>
+        <activity android:name=".FoodDetail" />
+        <activity android:name=".OrderList"></activity>
     </application>
 
 </manifest>

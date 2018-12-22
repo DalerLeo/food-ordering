@@ -2,16 +2,14 @@ package com.dalerleo.foodordering.views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.button.MaterialButton;
 import android.util.Log;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.dalerleo.foodordering.FoodDetail;
 import com.dalerleo.foodordering.R;
 import com.dalerleo.foodordering.models.Food;
 import com.google.firebase.database.DatabaseReference;
@@ -45,11 +43,18 @@ public class MenuItemView {
   public Food mInfo;
   protected Context mContext;
   private  String username;
+  private  boolean isFood;
 
-  public MenuItemView(Context context, Food info,String username) {
+  public MenuItemView(Context context, Food info, String username) {
     mContext = context;
     mInfo = info;
     this.username = username;
+  }
+
+  public MenuItemView(Context context, Food info, boolean isFood) {
+    mContext = context;
+    mInfo = info;
+    this.isFood = isFood;
   }
 
   public MenuItemView(Context context, Food info,String username, boolean isFav) {
@@ -63,7 +68,12 @@ public class MenuItemView {
   @Resolve
   protected void onResolved() {
     favsRef = FirebaseDatabase.getInstance().getReference().child("favs");
-    onCartClick();
+    if(!isFood) {
+      onCartClick();
+    }
+    if (isFood) {
+      lottieFav.setVisibility(android.view.View.GONE);
+    }
     lottieFav.setMinProgress(0.6f);
     if(isFav) {
 //      lottieFav.setVisibility(android.view.View.GONE);
@@ -116,6 +126,7 @@ public class MenuItemView {
         intent.putExtra("image_url", mInfo.getImage_url());
         intent.putExtra("price", mInfo.getPriceCurrency());
         intent.putExtra("priceNum", mInfo.getPrice());
+        intent.putExtra("content", mInfo.getContent());
         mContext.startActivity(intent);
       }
     });
