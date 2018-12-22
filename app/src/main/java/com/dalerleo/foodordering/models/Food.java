@@ -1,7 +1,8 @@
 package com.dalerleo.foodordering.models;
 
-import android.util.Log;
 
+// FOOD MODEL TO EASILY MANIPULATE FOODS OBJECT TAKEN FROM FIREBASE DATABASE
+// WHICH FIELDS CORRESPONDS TO THIS FOOD CLASS OBJECT
 public class Food {
 
   private String name;

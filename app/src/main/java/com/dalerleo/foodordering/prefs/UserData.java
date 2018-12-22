@@ -7,6 +7,7 @@ import com.dalerleo.foodordering.app.App;
 
 import static com.dalerleo.foodordering.LoginActivity.USER_REF;
 
+// THIS HELPER CLASS IS USED TO EASELY MANIPULATE PREFERENCES NEEDED FOR US
 public class UserData {
   private String PREF_NAME = "prefs";
   private String USER_NAME = "username";
@@ -17,6 +18,7 @@ public class UserData {
     this.context = App.getsInstance().getApplicationContext();
   }
 
+  // SETTING AND GETTING EMAIL ADDRESS
   public void setUsername(String username) {
     getSharedPrefs().edit().putString(USER_NAME, username).apply();
   }
@@ -25,6 +27,7 @@ public class UserData {
     return getSharedPrefs().getString(USER_NAME, "");
   }
 
+  // GETTING AND SETTING FULL NAME
   public void setName(String name) {
     getSharedPrefs().edit().putString(NAME, name).apply();
   }

@@ -1,39 +1,22 @@
 package com.dalerleo.foodordering;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dalerleo.foodordering.prefs.UserData;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 public class LoginActivity extends AppCompatActivity {
   // Choose an arbitrary request code value
   private static final int RC_SIGN_IN = 123;
   public static String USER_REF = "userRef";
   public static String USER_NAME = "userName";
+  UserData prefUser;
   private String username;
   FirebaseAuth mAuth;
   FirebaseAuth.AuthStateListener mAuthStateListerner;
@@ -49,10 +32,12 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        // IF USERS EXISTS THEN INITIALIZE USER
         if (user != null) {
           onSignInInit(user.getEmail(), user.getDisplayName());
         }
         else {
+          // ELSE FORWARD USER TO SING_UP PAGE BY FIREBASE IU LIBRARY
           onSignOutClean();
           startActivityForResult(
             // Get an instance of AuthUI based on the default app
@@ -67,32 +52,43 @@ public class LoginActivity extends AppCompatActivity {
 
   }
 
+  // CLEANING SHARED PREFERANCES WHEN LOGING OUT
   private void onSignOutClean() {
+    prefUser = new UserData();
+    prefUser.setName("");
+    prefUser.setUsername("");
     username = "";
   }
 
+  // SETTING UP SHARE PREFS FOR FUTURE USAGE
+  // AND DEPENDING OF email, FORWARDING THEM TO REQUIRED ACTIVITY
+  // IF USER EMAIL CONTAINTS "admin" STRING, THEN IT IS CONSIDERED AS ADMIN USER
+  // ELSE SIMPLE CLIENT
   private void onSignInInit(String userName, String name) {
     this.username = userName;
-    UserData user = new UserData();
-    user.setUsername(username);
-    user.setName(name);
+    prefUser = new UserData();
+    prefUser.setUsername(username);
+    prefUser.setName(name);
     if (userName.contains("admin")) {
       Intent intent = new Intent(this, AdminActivity.class);
       startActivity(intent);
     }else {
-      Intent intent = new Intent(this, MainActivity.class);
+      Intent intent = new Intent(this, ClientActivity.class);
       startActivity(intent);
 
     }
 
   }
+  // CLEANING AND SETTING LISTENERS IS USED FOR EFFICIENCY MEMORY USAGE
 
+  // SET LISTENER FOR FIREBASE - AUTH
   @Override
   protected void onResume() {
     super.onResume();
     mAuth.addAuthStateListener(mAuthStateListerner);
   }
 
+  // CLEAR LISTENERS IF IT IS SET
   @Override
   protected void onPause() {
     super.onPause();
@@ -101,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
-
+// SIGN OUT USERS FROM FIREBASE_UI WHEN REQUIRED
   public void signOut(View view) {
     AuthUI.getInstance().signOut(this);
   }

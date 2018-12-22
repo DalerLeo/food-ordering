@@ -13,7 +13,6 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.dalerleo.foodordering.models.Order;
@@ -27,11 +26,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+
+// MAIN ADMIN ACTIVITY FOR ADMIN PAGE
 public class AdminActivity extends AppCompatActivity {
   private TabAdapter adapter;
   private TabLayout tabLayout;
   private ViewPager viewPager;
   DatabaseReference orderRef;
+  ValueEventListener valueEventListener;
+  Query lastQuery;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +44,44 @@ public class AdminActivity extends AppCompatActivity {
     tabLayout = findViewById(R.id.adminTabLayout);
 
     adapter = new TabAdapter(getSupportFragmentManager());
+    // SETTING FRAGMENTS FOR TABULAR VIEW IN ADAPTER
     adapter.addFragment(new TabFoods(), "Food");
     adapter.addFragment(new TabOrder(), "Orders");
     adapter.addFragment(TabProfile.newInstance("Admin"), "Profile");
-
+    // SETTING ADAPTER TO VIEW PAGER FOR TAB VIEW
     viewPager.setAdapter(adapter);
     tabLayout.setupWithViewPager(viewPager);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    // REMOVE LISTENER WHEN ACTIVITY IS DESTROYED
+    lastQuery.removeEventListener(valueEventListener);
+  }
+
+  @Override
+  protected void onResume() {
+
+    super.onResume();
+    // SET NOTIFICATION LISTENER WHEN ACTIVITY IS CREATED
     setNotification();
   }
 
   private void setNotification() {
     orderRef = FirebaseDatabase.getInstance().getReference();
-    Query lastQuery = orderRef.child("orders").orderByKey().limitToLast(1);
+    // GET LATEST CHANGE FROM ORDERS TABLE
+    lastQuery = orderRef.child("orders").orderByKey().limitToLast(1);
 
-    lastQuery.addValueEventListener(new ValueEventListener() {
+    // LISTEN FOR CHANGE IN FIREBASE DATABASE
+    valueEventListener = new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         Order lastOrder = new Order();
         for(DataSnapshot data : dataSnapshot.getChildren()) {
           lastOrder = data.getValue(Order.class);
         }
+        // WITHIN THE SUCCESSFUL CHANGE IN DATABASE, SETUP NOTIFICATION FOR ADMIN
         int NOTIFICATION_ID = 234;
 
         if(!lastOrder.getName().isEmpty()) {
@@ -70,7 +91,7 @@ public class AdminActivity extends AppCompatActivity {
 
           if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-
+            // SETTING UP NOTIFICATION BUILDER FOR NOTIFICATION
             CharSequence name = "my_channel";
             String Description = "This is my channel";
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -89,9 +110,9 @@ public class AdminActivity extends AppCompatActivity {
             .setContentTitle(lastOrder.getAmount() + " - " + lastOrder.getName())
             .setContentText("Address: " + lastOrder.getAddress());
 
-          Intent resultIntent = new Intent(AdminActivity.this, MainActivity.class);
+          Intent resultIntent = new Intent(AdminActivity.this, ClientActivity.class);
           TaskStackBuilder stackBuilder = TaskStackBuilder.create(AdminActivity.this);
-          stackBuilder.addParentStack(MainActivity.class);
+          stackBuilder.addParentStack(ClientActivity.class);
           stackBuilder.addNextIntent(resultIntent);
           PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -106,7 +127,8 @@ public class AdminActivity extends AppCompatActivity {
       public void onCancelled(@NonNull DatabaseError databaseError) {
 
       }
-    });
+    };
+    lastQuery.addValueEventListener(valueEventListener);
 
   }
 

@@ -1,5 +1,7 @@
 package com.dalerleo.foodordering.models;
 
+// FOOD MODEL TO EASILY MANIPULATE FOODS OBJECT TAKEN FROM FIREBASE DATABASE
+// WHICH FIELDS CORRESPONDS TO THIS FOOD CLASS OBJECT
 public class Order {
 
   private String name;
