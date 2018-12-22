@@ -45,7 +45,7 @@ public class OrderView {
   protected LinearLayout actionButtons;
 
   @View(R.id.orderStatus)
-  protected LinearLayout orderStatus;
+  protected android.view.View orderStatus;
 
   @View(R.id.cancelBtn)
   protected MaterialButton cancelBtn;
