@@ -85,9 +85,9 @@ public class AdminActivity extends AppCompatActivity {
           }
 
           NotificationCompat.Builder builder = new NotificationCompat.Builder(AdminActivity.this, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("New order")
-            .setContentText(lastOrder.getName());
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentTitle(lastOrder.getAmount() + " - " + lastOrder.getName())
+            .setContentText("Address: " + lastOrder.getAddress());
 
           Intent resultIntent = new Intent(AdminActivity.this, MainActivity.class);
           TaskStackBuilder stackBuilder = TaskStackBuilder.create(AdminActivity.this);

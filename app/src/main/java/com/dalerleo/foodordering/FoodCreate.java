@@ -79,8 +79,8 @@ public class FoodCreate extends AppCompatActivity {
         String name = nameEl.getText().toString();
         String content = contentEl.getText().toString();
         String price = priceEl.getText().toString();
-        progressBar.setVisibility(View.VISIBLE);
-        if (!price.equals("") && !name.equals("")) {
+        if (!price.equals("") && !name.equals("") && !content.isEmpty() && !imagePath.isEmpty()) {
+          progressBar.setVisibility(View.VISIBLE);
           DatabaseReference newFood = foodsRef.push();
           newFood.setValue(new Food(
             name,
@@ -94,6 +94,8 @@ public class FoodCreate extends AppCompatActivity {
               startActivity(new Intent(FoodCreate.this, AdminActivity.class));
             }
           });
+        }else {
+          Toast.makeText(FoodCreate.this, "Please, fill all fields", Toast.LENGTH_LONG).show();
         }
 
       }
