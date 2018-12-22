@@ -55,7 +55,6 @@ public class TabFavorites extends Fragment {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         progressBar.setVisibility(View.INVISIBLE);
-
         Food food = dataSnapshot.getValue(Food.class);
         mLoadMoreView.addView(new MenuItemView(
           TabFavorites.this.getContext(),
@@ -67,7 +66,6 @@ public class TabFavorites extends Fragment {
 
       @Override
       public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-        Log.d("ADDD", "CHANGE");
 
       }
 
