@@ -18,13 +18,15 @@ import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
+// DEFINE MENU_VIEW FOR EASY MANIPULATION
 @Layout(R.layout.menu_item_view)
 public class MenuItemView {
 
   DatabaseReference favsRef;
-  boolean isFav = false;
-  boolean isPressed = false;
+  private boolean isFav = false;
+  private boolean isPressed = false;
 
+  // INITIALIZE ALL LAYOUT COMPONENTS
   @View(R.id.titleTxt)
   protected TextView titleTxt;
 
@@ -46,18 +48,21 @@ public class MenuItemView {
   private  boolean isFood;
 
   public MenuItemView(Context context, Food info, String username) {
+    // MENU ITEM CONSTRUCTOR TAB_MENU
     mContext = context;
     mInfo = info;
     this.username = username;
   }
 
   public MenuItemView(Context context, Food info, boolean isFood) {
+    // FOOD ITEM CONSTRUCTOR FOR FOOD ITEM VIEW
     mContext = context;
     mInfo = info;
     this.isFood = isFood;
   }
 
   public MenuItemView(Context context, Food info,String username, boolean isFav) {
+    // FOOD ITEM CONSTRUCTOR FOR FAVORITE TAB
     mContext = context;
     mInfo = info;
     this.username = username;
@@ -67,31 +72,40 @@ public class MenuItemView {
 
   @Resolve
   protected void onResolved() {
+    // GET FAVS OBJECTS REFERENCE
     favsRef = FirebaseDatabase.getInstance().getReference().child("favs");
     if(!isFood) {
+      // IF NOT FOOD/ADMIN PAGE, MAKE CARD AVAILABLE FOR DETAILED ACCESS
       onCartClick();
     }
     if (isFood) {
+      // IF FOOD HIDE FAVORITE ICON IN ADMIN
       lottieFav.setVisibility(android.view.View.GONE);
     }
+    // SET REQUIRED INITIAL FRAME
     lottieFav.setMinProgress(0.6f);
     if(isFav) {
-//      lottieFav.setVisibility(android.view.View.GONE);
+      // IF FAVORITE ITEM, MAKE ICON FAVORITE
       lottieFav.playAnimation();
     }
 
     lottieFav.setOnClickListener(new android.view.View.OnClickListener() {
       @Override
       public void onClick(android.view.View v) {
-
+// HANDLE ON CLICK ON FAV_ICON
+        // PREVENT CLICKING WHEN ITEM IS ANIMATING
         if (!lottieFav.isAnimating() && !username.isEmpty()) {
           if (!isPressed) {
+            // IF PRESSED ADD IT TO FAV TABLE IN DATABAASE,
+            // PLAY ANIMATION
             setFav();
 
             lottieFav.playAnimation();
             isPressed = true;
           } else {
+            // IF UN_FAVED, REMOVE FROM DATABASE
             unsetFav();
+            // SET ICON TO INITIAL STATE
             lottieFav.setProgress(0.6f);
             isPressed = false;
           }
@@ -99,12 +113,14 @@ public class MenuItemView {
       }
     });
 
+    // SET LAYOUT COMPOENTNS
     titleTxt.setText(mInfo.getName());
     priceTxt.setText(mInfo.getPriceCurrency());
     Glide.with(mContext).load(mInfo.getImage_url()).into(imageView);
   }
 
   void setFav() {
+    // GET USERNAME AND SET FOOD HE LIKES TO FAVS_TABLE
     DatabaseReference newFav = favsRef.child(username).child(mInfo.getName());
 
     newFav.setValue(new Food(
@@ -113,10 +129,12 @@ public class MenuItemView {
       mInfo.getPrice()
     ));
   }
+  // REMOVE FOOD FROM FAV_TABLE
   void unsetFav() {
     favsRef.child(username).child(mInfo.getName()).removeValue();
   }
 
+  // BY CLICKING ON MENU ITEM OPEN DETAILS, AND PASS DETAILS OF INFORAMION FOR FUTURE USE IN COMPONENT
   void onCartClick() {
     cardItem.setOnClickListener(new android.view.View.OnClickListener() {
       @Override
