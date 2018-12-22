@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     setContentView(R.layout.login_activity);
 
 
-
     mAuth = FirebaseAuth.getInstance();
 
     mAuthStateListerner = new FirebaseAuth.AuthStateListener() {
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
       public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
-          onSignInInit(user.getEmail());
+          onSignInInit(user.getEmail(), user.getDisplayName());
         }
         else {
           onSignOutClean();
@@ -72,9 +71,11 @@ public class LoginActivity extends AppCompatActivity {
     username = "";
   }
 
-  private void onSignInInit(String userName) {
+  private void onSignInInit(String userName, String name) {
     this.username = userName;
-    new UserData().saveUsername(username);
+    UserData user = new UserData();
+    user.setUsername(username);
+//    user.setUsername(name);
     if (userName.contains("admin")) {
       Intent intent = new Intent(this, AdminActivity.class);
       startActivity(intent);
@@ -100,15 +101,6 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
-  public void goToUser(View view) {
-
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
-  }
-
-  public void goToAdmin(View view) {
-
-  }
 
   public void signOut(View view) {
     AuthUI.getInstance().signOut(this);

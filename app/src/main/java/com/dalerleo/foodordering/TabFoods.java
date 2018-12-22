@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dalerleo.foodordering.models.Food;
-import com.dalerleo.foodordering.models.Order;
+import com.dalerleo.foodordering.prefs.UserData;
 import com.dalerleo.foodordering.views.FoodView;
-import com.dalerleo.foodordering.views.OrderView;
+import com.dalerleo.foodordering.views.MenuItemView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,7 +70,7 @@ public class TabFoods extends Fragment {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         Food food = dataSnapshot.getValue(Food.class);
-        mLoadMoreView.addView(new FoodView(TabFoods.this.getContext(), food));
+        mLoadMoreView.addView(new MenuItemView(TabFoods.this.getContext(), food, true));
       }
 
       @Override

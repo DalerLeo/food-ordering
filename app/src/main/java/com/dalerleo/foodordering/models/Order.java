@@ -2,12 +2,12 @@ package com.dalerleo.foodordering.models;
 
 public class Order {
 
-private String name;
-private String username;
-private int amount;
-private long price;
-private int status;
-
+  private String name;
+  private String username;
+  private String address;
+  private int amount;
+  private long price;
+  private int status;
 
 
   public Order(String username, String name, int amount, long price, int status) {
@@ -17,7 +17,35 @@ private int status;
     this.status = status;
     this.username = username;
   }
-  public Order() { }
+
+  public Order(
+    String username,
+    String name,
+    String address,
+    int amount,
+    long price,
+    int status) {
+    this.name = name;
+    this.amount = amount;
+    this.price = price;
+    this.status = status;
+    this.username = username;
+
+    this.address = address;
+  }
+
+  public Order() {
+  }
+
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
 
   public int getStatus() {
     return status;

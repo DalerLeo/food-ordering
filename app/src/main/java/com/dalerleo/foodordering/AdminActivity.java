@@ -31,6 +31,7 @@ public class AdminActivity extends AppCompatActivity {
     adapter = new TabAdapter(getSupportFragmentManager());
     adapter.addFragment(new TabFoods(), "Food");
     adapter.addFragment(new TabOrder(), "Orders");
+    adapter.addFragment(new TabProfile(), "Profile");
 
     viewPager.setAdapter(adapter);
     tabLayout.setupWithViewPager(viewPager);
