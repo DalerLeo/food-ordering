@@ -4,16 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.button.MaterialButton;
-import android.util.Log;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.dalerleo.foodordering.R;
-import com.dalerleo.foodordering.models.Food;
 import com.dalerleo.foodordering.models.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,9 +17,11 @@ import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
+// ORDER VIEW MANIPULATOR
 @Layout(R.layout.order_item_view)
 public class OrderView {
 
+  // INITIALIZING LAYOUT COMPONENTS
   @View(R.id.orderUser)
   protected TextView orderUser;
 
@@ -52,21 +48,22 @@ public class OrderView {
 
   @View(R.id.cancelBtn)
   protected MaterialButton cancelBtn;
+
   protected String id;
   protected boolean isClient;
   protected Order mInfo;
   protected Context mContext;
   private DatabaseReference orderItemRef;
 
- final int WAITING = 1;
  final int CANCELED = 2;
  final int ACCEPTED = 3;
+ // CONSTRUCTOR FOR CLIENT ORDER LIST USAGE
   public OrderView(Context context, Order info, boolean isClient) {
     mContext = context;
     mInfo = info;
     this.isClient = isClient;
   }
-
+  // CONSTRUCTOR FOR ORDER TABS USAGE
   public OrderView(Context context, Order info, String id) {
     mContext = context;
     mInfo = info;
@@ -76,13 +73,14 @@ public class OrderView {
   @Resolve
   protected void onResolved() {
 
-
+// IF CLIENT SIDE, HIDE ACTIONS BUTTONS, USERNAME, ORDER_AMOUNT
     if(isClient) {
       actionButtons.setVisibility(android.view.View.GONE);
       orderUser.setVisibility(android.view.View.GONE);
       orderAmount.setVisibility(android.view.View.GONE);
     }
     else {
+      // GET EXACT ORDER FOR UPDATE ACTION
       orderItemRef = FirebaseDatabase
         .getInstance()
         .getReference()
@@ -93,6 +91,7 @@ public class OrderView {
     cancelBtn.setOnClickListener(new android.view.View.OnClickListener() {
       @Override
       public void onClick(android.view.View v) {
+        // SET STATUS TO REJECTED AND UPDATE DATABASE
         mInfo.setStatus(2);
         orderItemRef.setValue(mInfo)
         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -108,6 +107,7 @@ public class OrderView {
     acceptBtn.setOnClickListener(new android.view.View.OnClickListener() {
       @Override
       public void onClick(android.view.View v) {
+        // SET STATUS ACCEPTED AND UPDATE DATA_BASE
         mInfo.setStatus(3);
         orderItemRef.setValue(mInfo)
         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -120,19 +120,23 @@ public class OrderView {
       }
     });
 
-
+  // SET STATUS DEPENDING OF STATUS IN DATABASE
     orderStatus.setBackgroundColor(Color.parseColor(getColor(mInfo.getStatus())));
+    // SET OTHER ELEMENTS
     orderPrice.setText(mInfo.getPriceCurrency());
     orderAddress.setText(mInfo.getAddress());
+    // IF CLIENT SHOW NAME WITH THE AMOUNT OF ORDERED FOOD
     if(isClient) {
       orderName.setText(String.format("%d - %s", mInfo.getAmount(), mInfo.getName()));
     }else {
+      // ELSE SHOW ALL INFORMATION IN SEQUENCE
       orderUser.setText(mInfo.getUsername());
       orderName.setText(mInfo.getName());
       orderAmount.setText(mInfo.getAmountText());
     }
   }
 
+  // HELPER FUNCTION TO GET COLOR FOR INDICATOR
   private String getColor(int status){
     if (status == ACCEPTED) {
       return "#81c784";

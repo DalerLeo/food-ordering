@@ -87,13 +87,13 @@ public class AdminActivity extends AppCompatActivity {
         if(!lastOrder.getName().isEmpty()) {
           NotificationManager notificationManager = (NotificationManager) AdminActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-          String CHANNEL_ID = "my_channel_01";
+          String CHANNEL_ID = "delivera_channel_id";
 
           if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
             // SETTING UP NOTIFICATION BUILDER FOR NOTIFICATION
-            CharSequence name = "my_channel";
-            String Description = "This is my channel";
+            CharSequence name = "delivera_channel";
+            String Description = "It is delivery notification channel";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             mChannel.setDescription(Description);
@@ -107,8 +107,8 @@ public class AdminActivity extends AppCompatActivity {
 
           NotificationCompat.Builder builder = new NotificationCompat.Builder(AdminActivity.this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setContentTitle(lastOrder.getAmount() + " - " + lastOrder.getName())
-            .setContentText("Address: " + lastOrder.getAddress());
+            .setContentTitle(lastOrder.getAmount() + " - " + lastOrder.getName()) // SETTING AMOUNT AND FOOD NAME FOR NOTIFICATION TITLE
+            .setContentText("Address: " + lastOrder.getAddress()); // SETTING ADDRESS FOR DESCRIPTION
 
           Intent resultIntent = new Intent(AdminActivity.this, ClientActivity.class);
           TaskStackBuilder stackBuilder = TaskStackBuilder.create(AdminActivity.this);
