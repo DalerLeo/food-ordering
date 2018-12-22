@@ -10,6 +10,7 @@ import com.dalerleo.foodordering.prefs.UserData;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+// CREATED BY DALER ABDULLAEV
 
 public class LoginActivity extends AppCompatActivity {
   // Choose an arbitrary request code value

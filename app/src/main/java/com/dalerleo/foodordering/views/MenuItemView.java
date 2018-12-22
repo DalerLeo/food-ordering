@@ -2,7 +2,7 @@ package com.dalerleo.foodordering.views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+// CREATED BY DALER ABDULLAEV
+
 
 // DEFINE MENU_VIEW FOR EASY MANIPULATION
 @Layout(R.layout.menu_item_view)

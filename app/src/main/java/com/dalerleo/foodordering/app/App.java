@@ -1,5 +1,7 @@
 package com.dalerleo.foodordering.app;
+// CREATED BY DALER ABDULLAEV
 
+// CLASS TO GET CONTEXT ANY WHERE NEEDED
 import android.app.Application;
 
 public  class App extends Application {
