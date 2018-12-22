@@ -38,6 +38,9 @@ public class OrderView {
   @View(R.id.orderAmount)
   protected TextView orderAmount;
 
+  @View(R.id.orderAddress)
+  protected TextView orderAddress;
+
   @View(R.id.acceptBtn)
   protected MaterialButton acceptBtn;
 
@@ -120,6 +123,7 @@ public class OrderView {
 
     orderStatus.setBackgroundColor(Color.parseColor(getColor(mInfo.getStatus())));
     orderPrice.setText(mInfo.getPriceCurrency());
+    orderAddress.setText(mInfo.getAddress());
     if(isClient) {
       orderName.setText(String.format("%d - %s", mInfo.getAmount(), mInfo.getName()));
     }else {
