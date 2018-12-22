@@ -28,6 +28,8 @@ public class TabProfile extends Fragment {
     @NonNull LayoutInflater inflater,
     @Nullable ViewGroup container,
     @Nullable Bundle savedInstanceState) {
+      //INITIALIZING LAYOUT COMPONENTS AND INFLATING PROFILE FRAGMENT
+
     final View view = inflater.inflate(R.layout.fragment_profile, container, false);
     user = new UserData();
     onOrderList = view.findViewById(R.id.onOrderList);
@@ -37,8 +39,12 @@ public class TabProfile extends Fragment {
     if(getArguments().getString(PAGE_NAME,"").equals(ADMIN)) {
       onOrderList.setVisibility(View.GONE);
     }
+
+    //SETTING EMAIL AND NAME OF THE USER
     profileEmail.setText(user.getUsername());
     profileName.setText(user.getName());
+
+    //IF ORDER LIST BUTTON IS CLICKED, THE NEW ORDER LIST ACTIVITY WILL START
     onOrderList.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
