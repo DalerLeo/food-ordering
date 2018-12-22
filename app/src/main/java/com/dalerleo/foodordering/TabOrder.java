@@ -38,6 +38,8 @@ public class TabOrder extends Fragment {
     @NonNull LayoutInflater inflater,
     @Nullable ViewGroup container,
     @Nullable Bundle savedInstanceState) {
+
+    //INITIALIZING LAYOUT COMPONENTS AND INFLATING THE ORDER FRAGMENT
     View view = inflater.inflate(R.layout.fragment_orders, container, false);
     mLoadMoreView = view.findViewById(R.id.orderItems);
     pb = view.findViewById(R.id.progress);
@@ -47,8 +49,10 @@ public class TabOrder extends Fragment {
 
 
   private void setupView(){
+    //GETTING ORDERS THAT A CLIENT HAVE MADE TO ORDER FRAGMENT FROM FIREBASE
     orderRef = FirebaseDatabase.getInstance().getReference().child("orders");
 
+    //APPEND NEW ORDERED FOODS TO THE FRAGMENT LAYOUT
     childEventListener = new ChildEventListener() {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

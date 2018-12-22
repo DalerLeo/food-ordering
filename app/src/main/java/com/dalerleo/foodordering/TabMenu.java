@@ -35,6 +35,7 @@ public class TabMenu extends Fragment {
     @NonNull LayoutInflater inflater,
     @Nullable ViewGroup container,
     @Nullable Bundle savedInstanceState) {
+    //INITIALIZING LAYOUT COMPONENTS AND INFLATING MENU FRAGMENT
     View view = inflater.inflate(R.layout.fragment_menu, container, false);
     mLoadMoreView = view.findViewById(R.id.loadMore);
     progressBar = view.findViewById(R.id.progress);
@@ -51,14 +52,16 @@ public class TabMenu extends Fragment {
   }
 
   private void setupView(){
+    //GET REFERENCE FOR FOOD OBJECT
     foodsRef = FirebaseDatabase.getInstance().getReference().child("foods");
-
+    // IF NEW FOODS ARE ADDED BY ADMIN, THEY APPEAR ON MENU FRAGMENT
     childEventListener = new ChildEventListener() {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         progressBar.setVisibility(View.INVISIBLE);
 
         Food food = dataSnapshot.getValue(Food.class);
+        //LOADING NEW MEALS IN TO THE MENU
         mLoadMoreView.addView(new MenuItemView(
           TabMenu.this.getContext(),
           food,
