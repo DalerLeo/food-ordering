@@ -9,6 +9,7 @@
     tools:context=".AdminActivity">
 
     <android.support.v4.view.ViewPager
+        android:paddingBottom="10dp"
         android:id="@+id/adminViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

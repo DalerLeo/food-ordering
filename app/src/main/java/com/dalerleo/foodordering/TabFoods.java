@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.dalerleo.foodordering.models.Food;
 import com.dalerleo.foodordering.prefs.UserData;
@@ -32,6 +33,7 @@ public class TabFoods extends Fragment {
   private List<Food> foodList = new ArrayList<>();
   DatabaseReference foodsRef;
   ChildEventListener childEventListener;
+  ProgressBar progressBar;
   @Nullable
   @Override
   public View onCreateView(
@@ -40,28 +42,19 @@ public class TabFoods extends Fragment {
     @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_food, container, false);
     mLoadMoreView = view.findViewById(R.id.foodItems);
-    Log.d("ADD: ", "FOOODDD");
+    progressBar = view.findViewById(R.id.progress);
 
-    mLoadMoreView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-      @Override
-      public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-        return false;
-      }
-
-      @Override
-      public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-
-      }
-
-      @Override
-      public void onRequestDisallowInterceptTouchEvent(boolean b) {
-
-      }
-    });
     setupView();
     return view;
   }
 
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    progressBar.setVisibility(View.VISIBLE);
+
+  }
 
   private void setupView(){
     foodsRef = FirebaseDatabase.getInstance().getReference().child("foods");
@@ -69,13 +62,13 @@ public class TabFoods extends Fragment {
     childEventListener = new ChildEventListener() {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        progressBar.setVisibility(View.INVISIBLE);
         Food food = dataSnapshot.getValue(Food.class);
         mLoadMoreView.addView(new MenuItemView(TabFoods.this.getContext(), food, true));
       }
 
       @Override
       public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-        Log.d("ADDD", "CHANGE");
 
       }
 
