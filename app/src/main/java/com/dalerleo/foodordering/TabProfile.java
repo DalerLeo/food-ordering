@@ -34,13 +34,11 @@ public class TabProfile extends Fragment {
     profileEmail = view.findViewById(R.id.profileEmail);
     profileName = view.findViewById(R.id.profileName);
 
-    if(getArguments().getString(PAGE_NAME,"") == ADMIN) {
+    if(getArguments().getString(PAGE_NAME,"").equals(ADMIN)) {
       onOrderList.setVisibility(View.GONE);
     }
-    Log.d("LOGGG: ", user.getUsername());
-    Log.d("LOGGG: ", user.getName());
     profileEmail.setText(user.getUsername());
-//    profileName.setText(user.getName());
+    profileName.setText(user.getName());
     onOrderList.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

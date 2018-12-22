@@ -7,4 +7,7 @@
     <color name="grey">#adb8cf</color>
     <color name="blackish">#333</color>
     <color name="background">#f7fbfe</color>
+    <color name="waiting">#f0ad4e</color>
+    <color name="accepted">#81c784</color>
+    <color name="rejected">#e57373</color>
 </resources>

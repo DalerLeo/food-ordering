@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.dalerleo.foodordering.R;
 import com.dalerleo.foodordering.models.Food;
@@ -28,11 +30,13 @@ public class OrderList extends AppCompatActivity {
   Query orderRef;
   ChildEventListener childEventListener;
 
+  ProgressBar progressBar;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_order_list);
     mLoadMoreView = findViewById(R.id.orderItems);
+    progressBar = findViewById(R.id.progress);
     setupView();
   }
 
@@ -47,6 +51,7 @@ public class OrderList extends AppCompatActivity {
     childEventListener = new ChildEventListener() {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        progressBar.setVisibility(View.GONE);
         Order order = dataSnapshot.getValue(Order.class);
         String orderId = dataSnapshot.getKey();
         mLoadMoreView.addView(new OrderView(OrderList.this, order, true));

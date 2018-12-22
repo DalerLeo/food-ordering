@@ -60,7 +60,6 @@ public class TabOrder extends Fragment {
 
       @Override
       public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-        Log.d("ADDD", "CHANGE");
 
       }
 
@@ -82,9 +81,5 @@ public class TabOrder extends Fragment {
 
     orderRef.addChildEventListener(childEventListener);
 
-  //  }
-
-
-//    mLoadMoreView.setLoadMoreResolver(new LoadMoreView(mLoadMoreView, ));
   }
 }
