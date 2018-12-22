@@ -24,6 +24,7 @@ import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import java.util.ArrayList;
 import java.util.List;
+// CREATED BY JAVOKHIR ABDIRASHIDOV
 
 public class TabOrder extends Fragment {
   private InfinitePlaceHolderView mLoadMoreView;

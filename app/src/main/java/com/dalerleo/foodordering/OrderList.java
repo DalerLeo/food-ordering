@@ -4,10 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import com.dalerleo.foodordering.models.Food;
 import com.dalerleo.foodordering.models.Order;
 import com.dalerleo.foodordering.prefs.UserData;
 import com.dalerleo.foodordering.views.OrderView;
@@ -18,8 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
-import java.util.ArrayList;
-import java.util.List;
+// CREATED BY JAVOKHIR ABDIRASHIDOV
 
 public class OrderList extends AppCompatActivity {
   private InfinitePlaceHolderView mLoadMoreView;

@@ -10,6 +10,7 @@ import com.dalerleo.foodordering.models.Food;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+// CREATED BY JAVOKHIR ABDIRASHIDOV
 
 // DEFINE FOOD_VIEW FOR EASY MANIPULATION
 @Layout(R.layout.food_item_view)

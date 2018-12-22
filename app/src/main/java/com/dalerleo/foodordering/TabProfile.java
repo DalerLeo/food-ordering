@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.dalerleo.foodordering.prefs.UserData;
 
+// CREATED BY JAVOKHIR ABDIRASHIDOV
 public class TabProfile extends Fragment {
 
  public static String PAGE_NAME="pageName";
@@ -35,7 +36,7 @@ public class TabProfile extends Fragment {
     onOrderList = view.findViewById(R.id.onOrderList);
     profileEmail = view.findViewById(R.id.profileEmail);
     profileName = view.findViewById(R.id.profileName);
-
+// IF ADMIN HIDE ORDERLIST BUTTON
     if(getArguments().getString(PAGE_NAME,"").equals(ADMIN)) {
       onOrderList.setVisibility(View.GONE);
     }
@@ -54,10 +55,12 @@ public class TabProfile extends Fragment {
     return view;
   }
 
+  // IN ORDER TO  DIFFIRENTIATE FROM WHE TAB PROFILE CALLED, STATIC METHOD IS USER TO PASS THE ARGUMENT FROM PARENT CLASS
   public static TabProfile newInstance(String pageName) {
-
+// SET PASSED ARGUMENT TO NEW OBJECTS
     Bundle args = new Bundle();
     args.putString(PAGE_NAME,pageName);
+    // AND CREATED NEW OBJECT OF TAB_PROFILE
     TabProfile fragment = new TabProfile();
     fragment.setArguments(args);
     return fragment;

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.dalerleo.foodordering.app.App;
+// CREATED BY DALER ABDULLAEV
 
-import static com.dalerleo.foodordering.LoginActivity.USER_REF;
 
 // THIS HELPER CLASS IS USED TO EASELY MANIPULATE PREFERENCES NEEDED FOR US
 public class UserData {

@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+// CREATED BY DALER ABDULLAEV
+
 // TAB ADAPTER FOR USAGE OF TABULAR VIEW
 public class TabAdapter extends FragmentStatePagerAdapter {
   private final List<Fragment> mFragmentList = new ArrayList<>();

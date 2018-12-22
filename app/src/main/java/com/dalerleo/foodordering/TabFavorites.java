@@ -21,6 +21,7 @@ import com.google.firebase.database.Query;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import java.util.List;
+// CREATED BY DALER ABDULLAEV
 
 public class TabFavorites extends Fragment {
   ChildEventListener childEventListener;

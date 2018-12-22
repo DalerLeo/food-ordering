@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+// CREATED BY JAVOKHIR ABDIRASHIDOV
+
 
 // ORDER VIEW MANIPULATOR
 @Layout(R.layout.order_item_view)

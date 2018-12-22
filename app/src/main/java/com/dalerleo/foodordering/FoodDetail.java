@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+// CREATED BY JAVOKHIR ABDIRASHIDOV
+
 
 // FOOD DETAILS AND ORDERING IN THEN SAME ACTIVITY FOR EASE OF USE
 public class FoodDetail extends AppCompatActivity {
