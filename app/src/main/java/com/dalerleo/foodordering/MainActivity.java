@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     adapter = new TabAdapter(getSupportFragmentManager());
     adapter.addFragment(new TabFavorites(), "Favorite");
     adapter.addFragment(new TabMenu(), "Menu");
-    adapter.addFragment(new TabProfile(), "Profile");
+    adapter.addFragment(TabProfile.newInstance("Main"), "Profile");
 
     viewPager.setAdapter(adapter);
     tabLayout.setupWithViewPager(viewPager);

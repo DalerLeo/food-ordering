@@ -39,7 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
             <LinearLayout
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
@@ -47,7 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="0.7"
+                >
 
                 <TextView
                     android:id="@+id/titleTxt"
@@ -55,6 +58,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/blackish"
                     android:text="Burger King"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_semibold" />
                 <TextView
@@ -69,18 +74,19 @@
                     android:textAllCaps="true"
                     android:textStyle="bold"/>
             </LinearLayout>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:layout_weight="0.3">
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animation_view"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:scaleType="centerCrop"
-                    android:layout_gravity="center|end"
                     app:lottie_fileName="love.json"
                     app:lottie_autoPlay="false" />
-            </FrameLayout>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

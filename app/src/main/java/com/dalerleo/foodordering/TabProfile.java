@@ -16,6 +16,8 @@ import com.dalerleo.foodordering.prefs.UserData;
 
 public class TabProfile extends Fragment {
 
+ public static String PAGE_NAME="pageName";
+ private String ADMIN = "Admin";
   TextView profileEmail;
   TextView profileName;
   Button onOrderList;
@@ -32,6 +34,9 @@ public class TabProfile extends Fragment {
     profileEmail = view.findViewById(R.id.profileEmail);
     profileName = view.findViewById(R.id.profileName);
 
+    if(getArguments().getString(PAGE_NAME,"") == ADMIN) {
+      onOrderList.setVisibility(View.GONE);
+    }
     Log.d("LOGGG: ", user.getUsername());
     Log.d("LOGGG: ", user.getName());
     profileEmail.setText(user.getUsername());
@@ -43,5 +48,14 @@ public class TabProfile extends Fragment {
       }
     });
     return view;
+  }
+
+  public static TabProfile newInstance(String pageName) {
+
+    Bundle args = new Bundle();
+    args.putString(PAGE_NAME,pageName);
+    TabProfile fragment = new TabProfile();
+    fragment.setArguments(args);
+    return fragment;
   }
 }

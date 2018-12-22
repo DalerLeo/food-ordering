@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.dalerleo.foodordering.models.Food;
 import com.google.android.gms.tasks.Continuation;
@@ -32,6 +34,7 @@ public class FoodCreate extends AppCompatActivity {
   DatabaseReference foodsRef;
 
   Button chooseImg, uploadFood;
+  ProgressBar progressBar;
   EditText priceEl, nameEl, contentEl;
   ImageView imgView;
   int PICK_IMAGE_REQUEST = 111;
@@ -54,11 +57,9 @@ public class FoodCreate extends AppCompatActivity {
     nameEl = (EditText) findViewById(R.id.createName);
     contentEl = (EditText) findViewById(R.id.createContent);
     imgView = (ImageView) findViewById(R.id.imgView);
+    progressBar = findViewById(R.id.progressBar);
 
-
-    pd = new ProgressDialog(this);
-    pd.setMessage("Uploading....");
-
+    progressBar.setVisibility(View.INVISIBLE);
     // Choose image from gallery
     chooseImg.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -78,7 +79,7 @@ public class FoodCreate extends AppCompatActivity {
         String name = nameEl.getText().toString();
         String content = contentEl.getText().toString();
         String price = priceEl.getText().toString();
-
+        progressBar.setVisibility(View.VISIBLE);
         if (!price.equals("") && !name.equals("")) {
           DatabaseReference newFood = foodsRef.push();
           newFood.setValue(new Food(
@@ -89,6 +90,7 @@ public class FoodCreate extends AppCompatActivity {
           )).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+              progressBar.setVisibility(View.INVISIBLE);
               startActivity(new Intent(FoodCreate.this, AdminActivity.class));
             }
           });
@@ -101,8 +103,8 @@ public class FoodCreate extends AppCompatActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
+    progressBar.setVisibility(View.VISIBLE);
     if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-      pd.setMessage("Loading...");
       filePath = data.getData();
       if (filePath.getLastPathSegment() != null) {
         final StorageReference photoRef = imageRef.child(filePath.getLastPathSegment());
@@ -122,13 +124,11 @@ public class FoodCreate extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
               if (task.isSuccessful()) {
-                pd.dismiss();
                 Uri downloadUri = task.getResult();
                 imagePath = downloadUri.toString();
-
+                progressBar.setVisibility(View.GONE);
               } else {
-                // Handle failures
-                // ...
+                Toast.makeText(FoodCreate.this, "ERROR While Loading File", Toast.LENGTH_LONG).show();
               }
             }
           });

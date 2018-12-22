@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.dalerleo.foodordering.models.Food;
 import com.dalerleo.foodordering.prefs.UserData;
@@ -17,7 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import java.util.ArrayList;
@@ -29,6 +28,7 @@ public class TabMenu extends Fragment {
   DatabaseReference foodsRef;
   ChildEventListener childEventListener;
   UserData userData;
+  ProgressBar progressBar;
   @Nullable
   @Override
   public View onCreateView(
@@ -37,6 +37,8 @@ public class TabMenu extends Fragment {
     @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_menu, container, false);
     mLoadMoreView = view.findViewById(R.id.loadMore);
+    progressBar = view.findViewById(R.id.progress);
+
     return view;
   }
 
@@ -49,17 +51,13 @@ public class TabMenu extends Fragment {
   }
 
   private void setupView(){
-    Query myMostViewedPostsQuery = FirebaseDatabase.getInstance().getReference().child("foods")
-      .orderByChild("price").equalTo(20000);
-
-
     foodsRef = FirebaseDatabase.getInstance().getReference().child("foods");
-
-
 
     childEventListener = new ChildEventListener() {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        progressBar.setVisibility(View.INVISIBLE);
+
         Food food = dataSnapshot.getValue(Food.class);
         mLoadMoreView.addView(new MenuItemView(
           TabMenu.this.getContext(),
@@ -89,14 +87,7 @@ public class TabMenu extends Fragment {
 
       }
     };
-
-//    myMostViewedPostsQuery.addChildEventListener(childEventListener);
-
     foodsRef.addChildEventListener(childEventListener);
 
-  //  }
-
-
-//    mLoadMoreView.setLoadMoreResolver(new LoadMoreView(mLoadMoreView, ));
   }
 }
