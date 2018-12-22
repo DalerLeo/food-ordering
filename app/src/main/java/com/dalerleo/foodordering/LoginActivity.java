@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     this.username = userName;
     UserData user = new UserData();
     user.setUsername(username);
-//    user.setUsername(name);
+    user.setName(name);
     if (userName.contains("admin")) {
       Intent intent = new Intent(this, AdminActivity.class);
       startActivity(intent);

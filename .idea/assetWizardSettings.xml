@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -18,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/dalerleo/Programs/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/home/dalerleo/Programs/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_stop_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -31,7 +36,7 @@
                             <entry key="autoMirrored" value="true" />
                             <entry key="color" value="ffffff" />
                             <entry key="opacityPercent" value="96" />
-                            <entry key="outputName" value="ic_add" />
+                            <entry key="outputName" value="ic_accepted" />
                             <entry key="sourceFile" value="$USER_HOME$/Desktop/Безымянный-2_Монтажная область 1.svg" />
                           </map>
                         </option>
