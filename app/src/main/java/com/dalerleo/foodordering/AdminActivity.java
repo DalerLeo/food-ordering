@@ -13,16 +13,25 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.dalerleo.foodordering.models.Order;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class AdminActivity extends AppCompatActivity {
   private TabAdapter adapter;
   private TabLayout tabLayout;
   private ViewPager viewPager;
+  DatabaseReference orderRef;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,46 +47,70 @@ public class AdminActivity extends AppCompatActivity {
 
     viewPager.setAdapter(adapter);
     tabLayout.setupWithViewPager(viewPager);
+    setNotification();
+  }
+
+  private void setNotification() {
+    orderRef = FirebaseDatabase.getInstance().getReference();
+    Query lastQuery = orderRef.child("orders").orderByKey().limitToLast(1);
+
+    lastQuery.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        Order lastOrder = new Order();
+        for(DataSnapshot data : dataSnapshot.getChildren()) {
+          lastOrder = data.getValue(Order.class);
+        }
+        int NOTIFICATION_ID = 234;
+
+        if(!lastOrder.getName().isEmpty()) {
+          NotificationManager notificationManager = (NotificationManager) AdminActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+          String CHANNEL_ID = "my_channel_01";
+
+          if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+
+            CharSequence name = "my_channel";
+            String Description = "This is my channel";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            mChannel.setDescription(Description);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            mChannel.setShowBadge(false);
+            notificationManager.createNotificationChannel(mChannel);
+          }
+
+          NotificationCompat.Builder builder = new NotificationCompat.Builder(AdminActivity.this, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("New order")
+            .setContentText(lastOrder.getName());
+
+          Intent resultIntent = new Intent(AdminActivity.this, MainActivity.class);
+          TaskStackBuilder stackBuilder = TaskStackBuilder.create(AdminActivity.this);
+          stackBuilder.addParentStack(MainActivity.class);
+          stackBuilder.addNextIntent(resultIntent);
+          PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+          builder.setContentIntent(resultPendingIntent);
+
+          notificationManager.notify(NOTIFICATION_ID, builder.build());
+        }
+
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+
+      }
+    });
+
   }
 
   public void AddFood(View view) {
-
-    int NOTIFICATION_ID = 234;
-
-    NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-    String CHANNEL_ID = "my_channel_01";
-
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-
-
-      CharSequence name = "my_channel";
-      String Description = "This is my channel";
-      int importance = NotificationManager.IMPORTANCE_HIGH;
-      NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
-      mChannel.setDescription(Description);
-      mChannel.enableLights(true);
-      mChannel.setLightColor(Color.RED);
-      mChannel.enableVibration(true);
-      mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-      mChannel.setShowBadge(false);
-      notificationManager.createNotificationChannel(mChannel);
-    }
-
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-      .setSmallIcon(R.mipmap.ic_launcher)
-      .setContentTitle("HELLO")
-      .setContentText("WORLD");
-
-    Intent resultIntent = new Intent(this, MainActivity.class);
-    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-    stackBuilder.addParentStack(MainActivity.class);
-    stackBuilder.addNextIntent(resultIntent);
-    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-    builder.setContentIntent(resultPendingIntent);
-
-    notificationManager.notify(NOTIFICATION_ID, builder.build());
 
 /*
 //    NotificationCompat.Builder mBuilder =
