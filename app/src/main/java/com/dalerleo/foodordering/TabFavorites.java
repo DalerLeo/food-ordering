@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.dalerleo.foodordering.models.Food;
 import com.dalerleo.foodordering.prefs.UserData;
@@ -24,10 +25,10 @@ import com.mindorks.placeholderview.InfinitePlaceHolderView;
 import java.util.List;
 
 public class TabFavorites extends Fragment {
-  DatabaseReference foodsRef;
   ChildEventListener childEventListener;
   private InfinitePlaceHolderView mLoadMoreView;
   String userName;
+  ProgressBar progressBar;
 
   @Nullable
   @Override
@@ -37,6 +38,7 @@ public class TabFavorites extends Fragment {
     @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_favorites, container, false);
     mLoadMoreView = view.findViewById(R.id.favList);
+    progressBar = view.findViewById(R.id.progress);
     userName = new UserData().getUserPath();
     setupView();
     return view;
@@ -49,13 +51,11 @@ public class TabFavorites extends Fragment {
       .child("favs")
       .child(userName);
 
-
-    foodsRef = FirebaseDatabase.getInstance().getReference().child("foods");
-
-
     childEventListener = new ChildEventListener() {
       @Override
       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        progressBar.setVisibility(View.INVISIBLE);
+
         Food food = dataSnapshot.getValue(Food.class);
         mLoadMoreView.addView(new MenuItemView(
           TabFavorites.this.getContext(),

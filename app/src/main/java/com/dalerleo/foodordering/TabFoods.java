@@ -90,26 +90,5 @@ public class TabFoods extends Fragment {
 
     foodsRef.addChildEventListener(childEventListener);
 
-  //  }
-
-    mLoadMoreView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-      @Override
-      public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-        return false;
-      }
-
-      @Override
-      public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-        Log.d("TOUCH", "tOUCJ");
-
-      }
-
-      @Override
-      public void onRequestDisallowInterceptTouchEvent(boolean b) {
-
-      }
-    });
-
-//    mLoadMoreView.setLoadMoreResolver(new LoadMoreView(mLoadMoreView, ));
   }
 }
