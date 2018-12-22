@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FoodDetail extends AppCompatActivity {
 
   TextView detailName;
+  TextView totalPrice;
   TextView detailContent;
   TextView detailPrice;
   TextView detailAmount;
@@ -40,6 +42,7 @@ public class FoodDetail extends AppCompatActivity {
     userData = new UserData();
     detailAmount = findViewById(R.id.detailAmount);
     detailName = findViewById(R.id.detailName);
+    totalPrice = findViewById(R.id.totalPrice);
     detailAddress = findViewById(R.id.detailAddress);
     detailContent = findViewById(R.id.detailContent);
     detailPrice = findViewById(R.id.detailPrice);
@@ -55,6 +58,7 @@ public class FoodDetail extends AppCompatActivity {
     detailName.setText(name);
     detailContent.setText(content);
     detailPrice.setText(price);
+    totalPrice.setText(String.format("%s SUM", priceNum));
     Glide.with(this).load(imageUrl).into(detailImage);
 
     onOrder.setOnClickListener(new android.view.View.OnClickListener() {
@@ -83,4 +87,22 @@ public class FoodDetail extends AppCompatActivity {
     });
   }
 
+  public void onAddAmount(View view) {
+    int amount = Integer.parseInt(detailAmount.getText().toString());
+    amount = amount + 1;
+    totalPrice.setText(String.format("%s SUM", amount * priceNum));
+    detailAmount.setText(String.format("%s", amount));
+  }
+
+  public void onSubtractAmount(View view) {
+
+    int amount = Integer.parseInt(detailAmount.getText().toString());
+    if (amount > 1) {
+      amount = amount - 1;
+      totalPrice.setText(String.format("%s SUM", amount * priceNum));
+      detailAmount.setText(String.format("%s", amount));
+
+    }
+
+  }
 }
